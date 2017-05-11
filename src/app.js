@@ -1,9 +1,14 @@
-import React from 'react';
-import axios from 'axios';
-import Pin from './Pin';
-import Nav from './Nav';
-import List from './List';
+import React from "react";
+import axios from "axios";
+import Pin from "./Pin";
+import Nav from "./Nav";
+import List from "./List";
+import AuthService from "./utils/AuthService";
 
+const auth = new AuthService(
+  "7ahU6Olf4SuRFf3B3lDGVuY6DGP0hj5T",
+  "dhsiao89.auth0.com"
+);
 
 class App extends React.Component {
   constructor(props) {
@@ -28,7 +33,8 @@ class App extends React.Component {
   }
 
   fetch() {
-    axios.get('/users')
+    axios
+      .get("/users")
       .then(res => {
         console.log(res);
       })
@@ -41,14 +47,9 @@ class App extends React.Component {
     //this.fetch();
   }
 
-
-
   // getPins(query) {
 
-
   // }
-
-
 
   // onPinClick(pin) {
 
@@ -57,9 +58,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <p>Happy Birthday, David!</p>
-        <Nav />
-        {this.state.fakeData.urls.map((list, index) => (<List data = {list} key={index}/>) )}
+        <Nav auth={auth} />
+        {this.state.fakeData.urls.map((list, index) => (
+          <List data={list} key={index} />
+        ))}
       </div>
     );
   }
